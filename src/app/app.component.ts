@@ -1,4 +1,10 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+
+interface AppState {
+  message: string;
+}
 
 @Component({
   selector: 'app-root',
@@ -6,5 +12,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'learning-ngrx';
+
+  message$?: Observable<string>;
+
+  constructor(private store: Store<AppState>){
+    this.message$ = this.store.select('message');
+  }
+
+  englishLanguage(){
+    this.store.dispatch({type: 'ENGLISH'});
+  }
+
+  swedishLanguage(){
+    this.store.dispatch({type: 'SWEDISH'});
+  }
+
+
 }
